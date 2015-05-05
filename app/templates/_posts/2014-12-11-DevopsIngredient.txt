@@ -1,0 +1,9 @@
+---
+layout: page
+post-url: http://www.dev2ops.in/devops-an-ingredient-for-survival-of-legacy-it-organizations/
+post-date: 11 dec
+post-year: 2014
+post-heading: Devops - An Ingredient for survival of legacy IT organizations
+description: As we all know in today’s fast paced environment, the software applications, products etc. are cranked at the rate of knots. 
+post-by: Pankaj Arora
+---

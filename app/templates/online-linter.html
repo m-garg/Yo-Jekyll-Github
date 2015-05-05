@@ -1,0 +1,152 @@
+---
+layout: page
+title: Boxupp’s Puppet Code Online Validator | Boxupp, Paxcel, India
+description: Boxupp by Paxcel Technologies, India allows you to create and manage Development Environments with easy Provisioning and leverage immense power of DevOps tools.
+---
+<section class="containor-linter two">
+	<header>
+    	<h2>Puppet <strong>Linter</strong><p>Welcome to the Boxupp’s Puppet Code Online Validator</p></h2>
+  	</header>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-4">
+        <div class="validationAssistant ">
+          <div class="heading">COPY-PASTE - VALIDATE</div>
+          <div class="desc">
+            <ul class="list-display">
+              <li>Most appropriate for validation of a single file</li>
+              <li>Click on the call to action, copy your code and paste it into the pop window and click Validate </li>
+              <li>Get Instant Report</li>
+              <li>Helps you write bug free code</li>
+            </ul>
+            
+            <!-- Modal -->
+            <div class="modal fade myModal"  id="validator" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa  fa-times-circle"></i> </button>
+                    <p > Paste your code in the validator</p>
+                  </div>
+                  <div class="modal-body" >
+                    <div class="form-group">
+                      <textarea class="form-control" id="description" name=""  ></textarea>
+                    </div>
+                    <button type="button" class="btn btn-success Validate-btn" data-toggle="modal" data-target=".validateOutput" onclick="validateManifestFileByCopyPast();">Validate</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="btn-position">
+              <button class="btn btn-success " type="button" data-toggle="modal" data-target=".myModal">Validation Assistant</button>
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="col-lg-4 col-md-4">
+        <div class="validationAssistant ">
+          <div class="heading">UPLOAD .pp - VALIDATE</div>
+          <div class="desc">
+            <ul class="list-display">
+              <li>Most appropriate for validation of multiple manifests  files in one go .</li>
+              <li>Click on the call to action, and use our uploader</li>
+              <li>Get Instant/ Email Reports</li>
+              <li>Helps you write bug free code</li>
+            </ul>
+            <div class="modal fade mydata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header" id="validator">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa  fa-times-circle"></i> </button>
+                    <p > Upload your manifests files ( in .pp formats).If you choose to input your email address the report for each file will be sent to the same) </p>
+                  </div>
+                  <div class="modal-body" >
+                    <form  class="uploadForm" id="uploadForm" enctype="multipart/form-data" >
+                      <div class="form-group">
+                        <input type="file" onchange="enableUploadButton(event);" name="files[]" id="exampleInputFile" accept=".pp" multiple>
+                      </div>         
+                      <button type="button" id="uploadButten" class="btn btn-success disable Validate-btn " data-toggle="modal" data-target=".validateOutput"  onclick="validateManifestFileByUpload();">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div  class="modal fade validateOutput "  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog " style="width:700px; top:20px;">
+                <div class="modal-content  ">
+                  <div   style="background:black; padding: 5px 15px; color:white;" id="validatorOutput">
+                    <button type="button" class="close model-btn-close " data-dismiss="modal" aria-hidden="true"><i class="fa  fa-times-circle"></i> </button>
+                    <p style="">OutPut Console</p>
+                    <div class="modal-body"  style="padding:20px; background:white;color:black;">
+                      <ul id="validatorFiles" >
+                        <li class ="validatorErrorMsg" ></li>
+                        <li class="validatorOutputMsg" ></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="btn-position">
+              <button class="btn btn-success btn-large btnStyle" type="button" data-toggle="modal" data-target=".mydata">Validation Assistant</button>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="validationAssistant ">
+          <div class="heading">USE OUR API- INTEGRATE WITH YOUR OWN APPLICATION </div>
+          <div class="desc">
+            <ul class="list-display">
+              <li>Most Suitable for Coding Enthusiasts</li>
+              <li>Will adda cutting edge to your application</li>
+            </ul>
+            <p  class="btn-position" >
+              <button data-target=".request-for-API" data-toggle="modal" class="btn btn-success btn-large btnStyle" type="button">Request For API </button>
+            <div  class="modal fade request-for-API" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog " style="width:500px; top:50px;">
+                <div class="modal-content  ">
+                  <div class="modal-header " id="validator">
+                    <button type="button" class="close model-btn-close " data-dismiss="modal" aria-hidden="true"><i class="fa  fa-times-circle"></i> </button>
+                    <p style="">Please Submit The Following Details</p>
+                  </div>
+                  <div class="modal-body" style="padding:20px;">
+                    <div class="form-group">
+                      <input type="Name" class="form-control" id="userName" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                      <input type="Email" class="form-control" id="userEmail" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                      <input type="linkedInProfile " class="form-control" id="linkedInProfile" placeholder="LinkedIn Profile">
+                    </div>
+                    <div class="form-group">
+                      <input type="usingIn" class="form-control" id="usingIn" placeholder="Application Or Website Where You Will Be Using This API">
+                    </div>
+                  </div>
+                  <div class="form-group" >
+                    <label style="margin-left:20px; color:red">Note:-Please make sure the details provided above are<br/>
+                      authentic because the instructions on how to use the API <br/>
+                      will be sent to the provided email address. </label>
+                  </div>
+                  <div class="form-group " style="text-align:right; margin-right:20px">
+                    <button type="submit" class="btn btn-success Validate-btn " onclick="requestForPuppetAPI();">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <p>If you are looking to leverage the best of all worlds and looking to provision VMS and Linux Containers using Docker, Vagrant ,Puppet etc. and validating your code on the fly . Then you must try using Boxupp .It won’t disappoint you </p>
+      </div>
+    </div>    
+    <footer class="text-center"> <a href="https://github.com/BoxUpp/boxupp/releases" class="button download-out" target="_blank"><i class="fa fa-download"></i>Download</a> </footer>
+ 
+</section>

@@ -1,0 +1,74 @@
+---
+layout: page
+title: Case Study - Chaikin Analytics - A DevOps Perspective | Boxupp
+description: Case Study depicting how inculcation of DevOps culture helped us at Boxupp automate our processes on various nodes for one of our clients Chaikin Power Tools.
+--- 
+
+<!-- Portfolio -->
+<section id="casestudies" class="two">
+  <header>
+    <h2>Case <strong>Studies</strong></h2>
+  </header>
+  <div class="row inner-pad15">
+    
+    <div class="text-left show-contnet">
+    <div class="case-study-img" data-toggle="modal" data-target=".myModal"> <a href="#"><img src="images/case-study.jpg" alt="Boxupp Chaikin Power Tools Case Study DevOps Flowchart" class="img-responsive" /></a>
+      <div class="zoom displayNone"  ><i class="fa fa-search"></i> </div>
+    </div>
+    <div class="modal fade myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog  caseStudyPop"  >
+        <div class="modal-content"  >
+          <button class="close model-btn-close case " aria-hidden="true" data-dismiss="modal" type="button"><i class="fa  fa-times-circle"></i> </button>
+          <img src="images/case-study.jpg" alt="Boxupp Chaikin Power Tools Case Study DevOps Flowchart" class=" img-responsive"/> </div>
+      </div>
+    </div>
+    
+      <h3>Case Study- Chaikin Analytics- A DevOps Perspective</h3>
+      <p>To negate the various challenges that we have discussed in our previous blog the process IT orgs should look up to is “<strong>DevOps</strong>” It offers solutions which focuses on the automation, re-usability, provisioning, commissioning and iterative improvements in the project development cycle.</p>
+      <p>We have prepared a case study on <a href="http://chaikinanalytics.com/" target="_blank">Chaikin-Analytics</a>, one of the powerful stock market analysis tools.</p>
+      <p>We will be using this case study as an e.g to explain the challenges and problems faced by us during the development life cycle of this product and how the inculcation of <strong>DevOps</strong> tools and technologies have played a crucial role in tackling and resolving these challenges, making the application releases robust and reliable and achieving the intended results.</p>
+      <p>Following are the enhancements which were experienced after up-gradation to <strong>DevOps</strong> work culture:</p>
+      <p>Eliminated the difference in the development, testing and production environments in terms of machines/VMs configurations, OS version, external libraries versions etc using the Vagrant, Puppet.</p>
+      <ul>
+        <li>Deploy new features in frequent iterations.</li>
+        <li>Faster build deployment time, Lowest cloud/application downtime
+          Realistic Testing Environment.</li>
+        <li>Easily packaging the builds, fewer errors and issues.</li>
+        <li>No database Login required and the changes are updated automatically in the database using migrations.</li>
+        <li>Remove dependencies from all dev teams like development team, server team, database team, networking team.</li>
+        <li>Provision or migrate project from one cloud to another.</li>
+      </ul>
+      <h4><strong>Eliminated the difference in development, testing and production environments in terms of machines/VMs configurations, OS versions, external library versions etc. using tools viz.vagrant and puppet:</strong></h4>
+      <P>The development and testing teams often have different operating systems, machine configurations when compared to production environments.</P>
+      <p>So to remove such differences, virtual development environments which are mirror images of the production environments with exact configurations, versions and settings etc can be replicated. <strong>Vagrant</strong> is an amazing tool which helps you achieve that.</p>
+      <p>Likewise, we created a centralized development environment using <strong>Vagrant</strong> for the Chaikin Analytics App and have used <strong>Puppet</strong> to provision and automate the builds and tasks based on the declarative and modular approach.</p>
+      <p>Using these tools, it takes only few minutes to create a new Chaikin Analytics environment in the existing cloud or in any other cloud space for any activity like development, testing etc.</P>
+      <h4><strong>Deployment of new features with frequent iterations:</strong></h4>
+      <p>We automated the deployment of builds using Puppet and Jenkins for Chaikin Analytics. We are following the continuous delivery approach so it has become extremely flexible for us to ship enhancements or releases to the production environment reliably, rapidly and judiciously.<br>
+        Before using the DevOps tools and technology solutions, we had to wait for new deployments on production servers for months but automation has significantly reduced the time of deploying new features.</p>
+      <h4><strong>Leser build deployment time, Lowest cloud/application downtime:</strong></h4>
+      <p>Continuous Integration of code and packages with the central repository using the bitbucket, git, jenkins and sonatype nexus has helped us catalyse and automate the deployment process .</p>
+      <p>Prior to this automation process there was an inevitable downtime for the Chaikin Analytics Cloud which lasted about 2-4 hours but now the downtime has reduced considerably to just few mins.</p>
+      <h4><strong>Compatible Testing Environments:</strong></h4>
+      <p>Quality analysis is an essential ingredient for the successful performance of a product.</p>
+      <p>With the help of vagrant, we are able to provision compatible, generic and complementing ( to production) testing environments which negates the scenarios viz. “doesn’t work on my machine”</p>
+      <p>Whenever a new feature is introduced in the Chaikin Application, the testing environment is completely re-provisioned automatically in accordance with the targeted version of the application on which quality checks will be done.</p>
+      <p>This helped us to create stable deliverable packages and builds for final release.</p>
+      <h4><strong>Easily packaging the builds, fewer errors and issues:</strong></h4>
+      <p>As stated above that there are frequent possibilities of missing out on packages, components or other assets during the production roll out activities.</p>
+      <p>Continuous Integration of the project modules and code has helped in the continuous delivery of the project to QA phase and to check whether the business logics are adhered to or not.</p>
+      <p> In the Chaikin Analytics App we have used <strong>Git</strong> for merging development tasks with the master or other branches. Also we have used <strong>Jenkin</strong> to build all the project modules of required branch for an environment and these modules and packages are uploaded in the central repository i.e. <strong>Sonatype Nexus</strong>.</p>
+      <p>The complete packages and builds of required versions from this central repository are shipped automatically to the QA phase . Likewise, the packages and builds are deployed into the production environment from this central repository.</p>
+      <h4><strong>No database Login required and the changes are updated automatically in the database using migrations.</strong></h4>
+      <p>Another common problem is the migration of database updates from the development database to the production database.<br>
+        If the changes are updated one by one manually to the production database, the probability of occurrence of errors increases many folds.Moreover this approach takes longer time resulting in longer downtime for the application.</p>
+      <p><strong>Ruby Migrations</strong> is a suggested framework which helps to eliminate such problems. It is the most suitable framework to automate the deployment of database changes and updates using a single command. It helped us reduce the downtime considerably in Chaikin Application deployment activities.</p>
+      <h4><strong>Remove dependencies from all dev teams like development team, server team, database team, networking team</strong></h4>
+      <p>Having the dependencies on the resources or teams is one of the well known cause for the delay in the applications release.</p>
+      <p>Vagrant, Puppet, Chef, Jenkins, ruby migrations and git tools have played significant roles in automating every type of the module and tasks in the application.</p>
+      <p>So once individual tasks are automated then there will be no dependency on any resource or team during the build deployment in the production.</p>
+      <p>To read about more such case studies and interesting articles on DevOps keep visiting our blogs every fortnight.</p>
+    </div>
+    <a href="javascript:void(0)" class="readmore"> Read more ...</a>
+  </div>
+</section>

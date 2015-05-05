@@ -1,0 +1,9 @@
+---
+layout: page
+post-url: http://www.dev2ops.in/devops-technical-and-business-benefits/
+post-date: 11 dec
+post-year: 2014
+post-heading: DevOps - Technical and Business Benefits
+description: Since the dawn of the software industry, it won’t be an understatement, that it has been majorly dependent on two teams “The Dev Team” and “The Ops Team” Though both the teams used to work on the same product.
+post-by: Pankaj Arora
+---

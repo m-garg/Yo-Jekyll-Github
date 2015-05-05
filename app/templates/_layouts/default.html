@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+{% include head.html %}
+<body data-spy="scroll" data-target="#nav">
+<div id="wrapper"> 
+ <a href="#menu-toggle" class="toggle" id="menu-toggle"><!--<i class="fa fa-fa-bars"></i>--></a>
+	{% include aside.html %} 
+  	<!-- Page Content -->
+  	<div id="page-content-wrapper">
+    	<div class="container-fluid pad0">
+        	{% include intro.html %}
+            {% include why.html %}
+            {% include overview.html %}
+        	{% include started.html %}
+        	{% include developers.html %}       
+        	{% include blog.html %}       
+			{% include contact.html %}
+            {% include footer.html %}
+            
+            
+    	</div>
+  	</div>
+  <!-- /#page-content-wrapper --> 
+  
+</div>
+<!-- /#wrapper --> 
+
+{% include js.html %}
+</body>
+</html>

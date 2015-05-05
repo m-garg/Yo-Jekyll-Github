@@ -1,0 +1,15 @@
+{
+  "name": "generator-paxceltech",
+  "version": "0.1.0",
+  "description": "",
+  "files": [
+    "app",
+    "router"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^0.19.2"
+  }
+}

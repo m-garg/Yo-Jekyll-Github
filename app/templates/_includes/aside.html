@@ -1,0 +1,31 @@
+<!-- Sidebar -->
+
+<div id="sidebar-wrapper"> 
+  <!-- Logo -->
+  <div id="logo"> <a href="index.html"><img src="images/logo.png" alt="" /></a>
+    
+  </div>
+  <nav id="nav">
+    <ul class="nav">
+      {% for node in site.nav %}
+      <li class="{% if node.permalink == page.path  %} active {% endif %} {% if forloop.first and  page.title == "Home" %}first-link{% endif %}" ><a href="{% if page.title != "Home" %}{% if node.linktype == 1 %}index.html{{ node.permalink }}{% else %}{{ node.permalink }}{% endif %}{% else %}{{ node.permalink }}{% endif %}" class="page-scroll"  ><span class="fa {{ node.icon }}"></span>{{  node.page }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+  
+  
+  
+  <div class="bottom"> 
+    
+    <!-- Social Icons -->
+    <ul class="icons">
+      <li><a href="http://twitter.com/Boxupp" class="fa fa-twitter" title="Twitter" target="_blank"><span class="label">Twitter</span></a></li>
+      <li><a href="http://facebook.com/Boxupp" class="fa fa-facebook" title="Facebook" target="_blank"><span class="label">Facebook</span></a></li>
+      <li><a href="https://www.youtube.com/channel/UCO4YPFoRuc9Fjl1-2nkfoyw" class="fa fa-youtube" title="Youtube" target="_blank"><span class="label">Youtube</span></a></li>
+      <li><a href="https://www.linkedin.com/company/3768272?trk=tyah&trkInfo=tarId%3A1403083871999%2Ctas%3Aboxupp%2Cidx%3A1-1-1" class="fa fa-linkedin" title="Linkedin" target="_blank"><span class="label" >Linkedin</span></a></li>
+      <li><a href="https://github.com/BoxUpp/boxupp" class="fa fa-github" title="Github" target="_blank"><span class="label">Github</span></a></li>
+      <li><a href="mailto:info@boxupp.com" class="fa fa-envelope" title="Email" target="_blank"><span class="label">Email</span></a></li>
+    </ul>
+  </div>
+</div>
+<!-- /#sidebar-wrapper --> 

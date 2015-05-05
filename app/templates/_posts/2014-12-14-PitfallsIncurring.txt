@@ -1,0 +1,9 @@
+---
+layout: page
+post-url: http://www.dev2ops.in/pitfalls-incurring-during-transition-from-development-to-deployment-2/
+post-date: 11 dec
+post-year: 2014
+post-heading: Pitfalls Incurring During Transition from Development to Deployment
+description: The real challenge of today’s project development life-cycle lies in shipping of the project builds from development environments to production.
+post-by: Gurjant Singh
+---

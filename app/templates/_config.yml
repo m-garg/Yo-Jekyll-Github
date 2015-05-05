@@ -1,0 +1,61 @@
+### GENERAL SETTINGS ###
+
+# Site settings
+title: Boxupp
+keywords: "Boxupp by Paxcel Technologies"
+description: Boxupp by Paxcel Technologies, India allows you to create and manage Development Environments with easy Provisioning and leverage immense power of DevOps tools.
+
+scss:
+  style: compressed
+
+nav:
+- page: Home
+  permalink: "#top"
+  id: top
+  icon: fa-home
+  linktype: 1
+  title: Home
+  
+- page: Why Boxupp
+  permalink: "#why"
+  id: why-link
+  icon: fa-question-circle
+  linktype: 1
+  title: Home
+  
+- page: Features
+  permalink: "#overview"
+  id: overview-link
+  icon: fa-star
+  linktype: 1
+  title: Home
+  
+- page: Get Started
+  permalink: "#started"
+  id: started-link
+  icon: fa-paper-plane
+  linktype: 1
+  title: Home
+  
+- page: Developers
+  permalink: "#developers"
+  id: developers-link
+  icon:  fa-code
+  linktype: 1
+  title: Home
+ 
+- page: Blog
+  permalink: "#blog"
+  id: blog-link
+  icon: fa-rss
+  linktype: 1
+  title: Home
+  
+- page: Case Studies
+  permalink: case-studies.html
+  id: top-link
+  icon:  fa-book
+  linktype: 0
+
+#- page: Technologies  permalink: "#technologies"   id: technologies-link  icon: fa-cogs  linktype: 1  - page: Downloads  permalink: "#downloads"   id: downloads-link  icon: fa-download   linktype: 1   - page:  Overview   permalink: "#overview"   id:  Overview-link   icon: fa-eye   linktype: 1# 
+  
