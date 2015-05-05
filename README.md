@@ -10,4 +10,4 @@
 
 5.You Jekyll website structure is created.
 
-6.Run Jekyll serve to check website on localhost:4000
+6.Run 'jekyll server' to check website on localhost:4000
