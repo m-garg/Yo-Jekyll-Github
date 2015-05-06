@@ -1,11 +1,8 @@
-var spawn = require('child_process').spawn;
-var yeoman = require('yeoman-generator');
+var generators = require('yeoman-generator');
 var exec = require('child_process').exec;
 var execSync = require('child_process').execSync;
 var child_process = require('child_process');
 var async = require('async');
-var util = require('util');
-
 var githubOptions = {
   version: '3.0.0'
 };
@@ -66,44 +63,54 @@ process.stdout.write(gitadd);
 //process.stdout.write(gitcommit);
 var gitstatus = child_process.execSync('git status', { encoding: 'utf8' });
 process.stdout.write(gitstatus);
+	//execSync("git init");
+//	execSync("git add .");
+	//execSync("git commit -m 'Initial_commit'");
+	//execSync("git status");
 };
 
 
-
-
-var Generator = module.exports = function Generator(args, options) {
+module.exports = generators.Base.extend({
+	
+  method1: function () {
+    this.log('method 1 just ran');
+  },
+  method2: function () {
   
-  yeoman.generators.Base.apply(this, arguments);
-};
-
-util.inherits(Generator, yeoman.generators.Base);
-
-Generator.prototype.askForUser = function askForUser() {
-	var done = this.async();
+        var done = this.async();
 
     console.log('method 2 just ran');
-	var date = new Date();
-	  var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-	  var prompts = [{
-			name: 'cname',
-			message: 'Would you like to use custom domain ?',
-			default: ''
-		  }];
+	 var date = new Date();
+  var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+
+  // Scaffold Jekyll dirs
+  //this.mkdir('app/_layouts');
+ // this.mkdir('app/_posts');
+//  this.mkdir('app/_includes');
+ // this.mkdir('app/_plugins');
+  var prompts = [{
+        name: 'cname',
+        message: 'Would you like to use custom domain ?',
+        default: ''
+      }];
 	this.prompt(prompts, function (props) {
         this.cname = props.cname;
         done();
       }.bind(this));
-};
+	  
+	  
 
-Generator.prototype.askForUser2 =  function () {
+  },
+  
+  method3: function () {
     console.log('method 3 just ran');
 	var context = { 
     cname: this.cname 
     };
     this.template('_cname', 'cname',context);
-  };
+  },
   
-  Generator.prototype.askForUser3 =  function(){
+  copydirs : function(){
 
 	        console.log('method 4 just ran');
 
@@ -122,10 +129,10 @@ Generator.prototype.askForUser2 =  function () {
 	  this.copy('LICENSE','LICENSE');
 	  this.copy('online-linter.html','online-linter.html');
 	  this.copy('README.md','README.md');
-  };
+  },
   
  
-  Generator.prototype.askForUser4 =  function(){
+  git: function(){
 	   var done = this.async();
 
       var prompts = [{
@@ -134,7 +141,7 @@ Generator.prototype.askForUser2 =  function () {
       },
 	  {
 		  name: 'githubPassword',
-		  message : 'What is your GitHub password?'
+		  message : 'What is your GitHub username?'
 	  },
 	  {
 		name:'gitRepo',
@@ -148,41 +155,32 @@ default: 'abc123'
 		this.gitRepo = props.gitRepo;
         done();
       }.bind(this));
+
 	
-};
-Generator.prototype.askForUser5 = function(){
+},
+gitAuth:function(){
 	githubAuth(this.githubUser,this.githubPassword);
 
-};
-
-Generator.prototype.conflicts  = function(){
-	gitRepo=this.gitRepo;
-	githubUser=this.githubUser;
-	//createRepo(this.gitRepo);
-	 github.repos.create({
-    name: this.gitRepo
-},function(err,res){
-	console.log("error: "+err+" response of create repo: "+res);
-	child_process.execSync('git init'); 
-    child_process.execSync('git add .');
-    child_process.execSync('git commit -m "Initial_commit"');
-    child_process.execSync('git remote add origin https://github.com/'+githubUser+'/'+gitRepo+'.git');
-	child_process.execSync('git branch gh-pages');
-	child_process.execSync('git push origin gh-pages');
+},
+/*
+method7: function(){
+	
+	exec("git init & timeout 3 & git add * & timeout 3 & git commit -m 'Initial commit' & timeout 3 & git status", function (error, stdout, stderr) {
+   console.log(stdout);
 });
-};
+*/
 
-Generator.prototype.install =  function(){
-	/*async.series([
-    function(){ child_process.execSync('git init'); },
-    function(){ child_process.execSync('git add \.'); },
-    function(){ child_process.execSync('git commit -m "Initial_commit"'); },
-    function(){ child_process.execSync('git status'); }	
-]);*/
-   /* child_process.execSync('git init'); 
-    child_process.execSync('git add .');
-    child_process.execSync('git commit -m "Initial_commit"');
-    child_process.execSync('git remote add origin https://github.com/'+this.githubUser+'/'+this.gitRepo+'.git');
-	child_process.execSync('git branch gh-pages');
-	child_process.execSync('git push origin gh-pages');*/
-};
+method8: function(){
+	
+	createRepo(this.gitRepo);
+},
+
+method9: function(){
+	createContent(this.githubUser,this.gitRepo);
+	
+}
+
+});
+
+	
+	
