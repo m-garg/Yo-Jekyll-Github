@@ -8,6 +8,6 @@
 
 4.Now go to any empty directory and run 'yo paxceltech'
 
-5.You Jekyll website structure is created.
+5.Follow the instructions and then your Jekyll website structure is created.
 
-6.Run 'jekyll server' to check website on localhost:4000
+6.Now go to "githubUserName.github.io/repoNameUsedWhileInstalling"
