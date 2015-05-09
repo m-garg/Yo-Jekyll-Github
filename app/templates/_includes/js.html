@@ -21,27 +21,22 @@
         $("#wrapper").toggleClass("toggled");
     });
 	
-	if ($(window).width() >= 650 && $(window).width() <= 768 )
-		{			
+	    if ($(window).width() >= 650 && $(window).width() <= 768 ){			
 			$("#wrapper").addClass('toggled');
 			
 			$("#page-content-wrapper").click(function () {
 				$("#wrapper").addClass('toggled');
 			})
 		}
-		
-		else if ($(window).width() <= 649){
+	    else if ($(window).width() <= 649){
 			$("#wrapper").removeClass('toggled');
 			
 			$("#page-content-wrapper").click(function () {
 				$("#wrapper").removeClass('toggled');
 			})
-			
-			
-			
-			}
+		}
 
-		 $('#page-content-wrapper').onmousewheel = function() {
+		$('#page-content-wrapper').onmousewheel = function() {
 			//console.log("scrolling");
 			//alert("Hello");
 		  };
@@ -59,33 +54,7 @@ $(".readmore").on("click",function(){
 	
 })
 	
-	function requestForDemo(){
-		var mappings ={"userName":$("#userName").val(), "emailID":$("#userEmail").val(), "skypeID":$("#userSkypeId").val(), "phoneNumber":$("#userPhoneNumber").val(), "preferredTime":$("#preferredTime1").val() + " - " + $("#preferredTime2").val()};
-		var userName = $("#userName").val();	
-		if((mappings.userName && mappings.emailID && mappings.skypeID && mappings.phoneNumber && mappings.preferredTime) === (undefined || "")){
-			alert("All fields are mandatory");
-			return;
-		}	
-
-		$.ajax({
-			type: "POST",
-			url: "http://www.boxupp.com/boxupp-services/mail/demoRequest",
-			contentType:'application/x-www-form-urlencoded',
-			data:mappings,
-			async: true,
-			success: function(data,status){
-				console.log(status.status);
-			},
-			error: function(errorThrown ){
-			 	console.log( errorThrown ); 
-			}
-		});
-		alert("Thank You! "+userName + ". We appreciate your interest in taking a Live Demo. We will revert back to you within 24 hours");
-	}
-
-
 // Code for back to top	
-
 
 	jQuery(document).ready(function($){
 	// browser window scroll (in pixels) after which the "back to top" link is shown
@@ -115,7 +84,6 @@ $(".readmore").on("click",function(){
 	});
 
 });
-	
 	
 	
     </script>

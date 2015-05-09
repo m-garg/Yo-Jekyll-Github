@@ -1,188 +1,229 @@
-var spawn = require('child_process').spawn;
 var yeoman = require('yeoman-generator');
-var exec = require('child_process').exec;
 var execSync = require('child_process').execSync;
 var child_process = require('child_process');
-var async = require('async');
-var util = require('util');
+var GitHubApi = require('github');
+var chalk = require('chalk');
 
 var githubOptions = {
   version: '3.0.0'
 };
-var GitHubApi = require('github');
+
 var github = new GitHubApi(githubOptions);
+
 var githubAuth = function(username,password){
-	console.log("called");
-	  github.authenticate({
-    type: "basic",
-    username: username,
-    password: password
-});
-//githubUserInfo(username);
-};
-  
-  
-  var createRepo = function(repoName){
-	console.log("repo name called");
-	  github.repos.create({
-    name: repoName
-},function(err,res){
-	console.log("error: "+err+" response of create repo: "+res);
+	github.authenticate({
+		type: "basic",
+		username: username,
+		password: password
 });
 };
-  
-  var createContent= function(userName,repoName){
-	   github.repos.createContent({
-    user : userName,
-	repo : repoName,
-	content : "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4=",
-	message  : "TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5"
-},function(err,res){
-	console.log("error: "+err+" response of update repo: "+res);
-});
-  };
+   
+module.exports = yeoman.generators.Base.extend({
+	
+  constructor: function () {
+    yeoman.generators.Base.apply(this, arguments);
+  },
 
-var githubUserInfo = function (name) {
-	console.log(name);
-  github.user.getFrom({
-    user: name
-  }, function (err, res) {
-    if (err) {
-      console.log('Cannot fetch your github profile. Make sure you\'ve typed it correctly.'+err);
+  projectPrompting: function () {
+    var cb = this.async();
+
+    this.log(this.yeoman);
+    this.log(chalk.magenta("\nIt\"s time to get Jekyllized!"));
+    this.log(chalk.yellow("\nTell me a little about your project »"));
+
+    var prompts = [{
+      name: "projectName",
+      message: "What is the name of your project?"
+    }, {
+      name: "projectDescription",
+      message: "Describe your project for me:"
+    }, {
+      name: "projectTagline",
+      message: "What is the tagline for your project?"
+    },{
+		name: "projectKeywords",
+		message: "Give the keywords related to your website"
+	},{
+		name: "cname",
+		message : "If you want to use custom domain for this website, enter it " + chalk.yellow("Leave blank if you don't want to use custom domain"),
+		default:""
+	}];
+
+    this.prompt(prompts, function (props) {
+      this.projectName        = props.projectName;
+      this.projectDescription = props.projectDescription;
+      this.projectTagline     = props.projectTagline;
+	  this.projectKeywords    = props.projectKeywords;
+      this.cname			  = props.cname;
+
+      cb();
+    }.bind(this));
+  },
+
+  authorPrompting: function () {
+    var cb = this.async();
+
+    this.log(chalk.yellow("\nNow it\"s time to tell me about you. »"));
+
+    var prompts = [{
+      name: "authorName",
+      message: "What is your name?",
+    }, {
+      name: "authorEmail",
+      message: "What is your email?",
+    }, {
+      name: "authorBio",
+      message: "Write a short description of yourself:"
+    }, {
+      name: "authorTwitter",
+      message: "Your Twitter user name:"
+    }];
+
+    this.prompt(prompts, function (props) {
+      this.authorName      = props.authorName;
+      this.authorEmail     = props.authorEmail;
+      this.authorBio       = props.authorBio;
+      this.authorTwitter   = props.authorTwitter;
+
+      cb();
+    }.bind(this));
+  },
+
+  jekyllPrompting: function () {
+    var cb = this.async();
+
+    this.log(chalk.yellow("\nNow on to set some Jekyll settings: »") +
+            chalk.red("\nYou can change all of this later in the _config.yml file"));
+
+    var prompts = [{
+      name: "jekyllPermalinks",
+      type: "list",
+      message: "Permalink style" + (chalk.red(
+                     "\n  pretty: /:year/:month/:day/:title/" +
+                     "\n  date:   /:year/:month/:day/:title.html" +
+                     "\n  none:   /:categories/:title.html")) + "\n",
+      choices: ["pretty", "date", "none"]
+    }, {
+      name: "jekyllPaginate",
+      message: "How many posts do you want to show on your front page?" + chalk.red("\nMust be a number or all"),
+      default: 10,
+      validate: function (input) {
+        if (/^[0-9]*$/.test(input)) {
+          return true;
+        }
+        if (/^all*$/i.test(input)) {
+          return true;
+        }
+        return "Must be a number or all";
+      }
+    }];
+
+    this.prompt(prompts, function (props) {
+      this.jekyllPermalinks   = props.jekyllPermalinks;
+      this.jekyllPaginate     = props.jekyllPaginate;
+
+      cb();
+    }.bind(this));
+  },
+
+  githubPrompting: function () {
+    var cb = this.async();
+
+    this.log(chalk.yellow("\nNow it\"s time to tell about Github account. »"));
+
+    var prompts = [{
+      name: "githubUserName",
+      message: "What is your Github username?",
+    }, {
+      name: "githubPassword",
+	  type: 'password',
+      message: "What is your password?",
+    }, {
+      name: "githubRepoName",
+      message: "Give the new repository name to create",
+	  default: "my-site"
+    }];
+
+    this.prompt(prompts, function (props) {
+      this.githubUserName      = props.githubUserName;
+      this.githubPassword      = props.githubPassword;
+      this.githubRepoName      = props.githubRepoName;
+
+      cb();
+    }.bind(this));
+  },
+  
+  scaffolding: function () {
+   /* this.copy("Gemfile", "Gemfile");
+    this.copy("bowerrc", ".bowerrc");
+    this.template("_package.json", "package.json");
+    this.template("_config.yml", "_config.yml");
+    this.template("_config.build.yml", "_config.build.yml");
+    this.template("_README.md", "README.md");
+    this.template("gulpfile.js", "gulpfile.js");
+    this.copy("gitignore", ".gitignore");
+    this.copy("gitattributes", ".gitattributes");
+    this.copy("jshintrc", ".jshintrc");
+    this.copy("editorconfig", ".editorconfig");
+    this.directory("app", "src");*/
+	this.template("_includes/aside.html", "_includes/aside.html");
+	this.template("_includes/blog.html", "_includes/blog.html");
+	this.template("_includes/contact.html", "_includes/contact.html");
+	this.template("_includes/developers.html", "_includes/developers.html");
+	this.template("_includes/footer.html", "_includes/footer.html");
+	this.template("_includes/head.html", "_includes/head.html");
+	this.template("_includes/intro.html", "_includes/intro.html");
+	this.template("_includes/js.html", "_includes/js.html");
+	this.template("_includes/overview.html", "_includes/overview.html");
+	this.template("_includes/started.html", "_includes/started.html");
+	this.template("_includes/why.html", "_includes/why.html");
+	this.template("_layouts/default.html", "_layouts/default.html");
+	this.template("_layouts/page.html", "_layouts/page.html");
+	this.template("_layouts/default.html", "_layouts/why.html");
+	this.directory('_posts', '_posts');
+	this.directory('_sass', '_sass');
+	this.directory('css', 'css');
+	this.directory('fonts', 'fonts');
+	this.directory('images', 'images');
+	this.directory('js', 'js');
+	this.template("cname", "cname");
+	this.copy('_config.yml','_config.yml');
+	this.copy('case-studies.html','case-studies.html');
+	this.copy('faq.html','faq.html');
+	this.copy('index.html','index.html');
+	this.copy('README.md','README.md');
+
+   /* if (this.amazonCloudfrontS3) {
+      this.template("conditionals/_aws-credentials.json", "aws-credentials.json");
     }
-	else{
-		      console.log('response: '+JSON.stringify(res));
-	}
+    else if (this.rsync) {
+      this.template("conditionals/_rsync-credentials.json", "rsync-credentials.json");
+    }*/
+  },
 
-  });
-};
-var gitinit = function(){
-	
-var git1 = child_process.execSync('git init', { encoding: 'utf8' });
-process.stdout.write(git1);
-var gitadd = child_process.execSync('git add .', { encoding: 'utf8' });
-process.stdout.write(gitadd);
-//var gitcommit = child_process.execSync('git commit -m "Initial_commit"', { encoding: 'utf8' });
-//process.stdout.write(gitcommit);
-var gitstatus = child_process.execSync('git status', { encoding: 'utf8' });
-process.stdout.write(gitstatus);
-};
-
-
-
-
-var Generator = module.exports = function Generator(args, options) {
-  
-  yeoman.generators.Base.apply(this, arguments);
-};
-
-util.inherits(Generator, yeoman.generators.Base);
-
-Generator.prototype.askForUser = function askForUser() {
-	var done = this.async();
-
-    console.log('method 2 just ran');
-	var date = new Date();
-	  var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-	  var prompts = [{
-			name: 'cname',
-			message: 'Would you like to use custom domain ?',
-			default: ''
-		  }];
-	this.prompt(prompts, function (props) {
-        this.cname = props.cname;
-        done();
-      }.bind(this));
-};
-
-Generator.prototype.askForUser2 =  function () {
-    console.log('method 3 just ran');
-	var context = { 
-    cname: this.cname 
-    };
-    this.template('_cname', 'cname',context);
-  };
-  
-  Generator.prototype.askForUser3 =  function(){
-
-	        console.log('method 4 just ran');
-
-	   this.directory('_includes', '_includes');
-      this.directory('_layouts', '_layouts');
-      this.directory('_posts', '_posts');
-      this.directory('_sass', '_sass');
-      this.directory('css', 'css');
-      this.directory('fonts', 'fonts');
-      this.directory('images', 'images');
-      this.directory('js', 'js');
-	  this.copy('_config.yml','_config.yml');
-	  this.copy('case-studies.html','case-studies.html');
-	  this.copy('faq.html','faq.html');
-	  this.copy('index.html','index.html');
-	  this.copy('LICENSE','LICENSE');
-	  this.copy('online-linter.html','online-linter.html');
-	  this.copy('README.md','README.md');
-  };
-  
- 
-  Generator.prototype.askForUser4 =  function(){
-	   var done = this.async();
-
-      var prompts = [{
-        name: 'githubUser',
-        message: 'What is your GitHub username?'
-      },
-	  {
-		  name: 'githubPassword',
-		  message : 'What is your GitHub password?'
-	  },
-	  {
-		name:'gitRepo',
-message: 'ggive the repo name',
-default: 'abc123'		
-	  }];
-
-      this.prompt(prompts, function (props) {
-        this.githubUser = props.githubUser;
-        this.githubPassword = props.githubPassword;
-		this.gitRepo = props.gitRepo;
-        done();
-      }.bind(this));
-	
-};
-Generator.prototype.askForUser5 = function(){
-	githubAuth(this.githubUser,this.githubPassword);
-
-};
-
-Generator.prototype.conflicts  = function(){
-	gitRepo=this.gitRepo;
-	githubUser=this.githubUser;
-	//createRepo(this.gitRepo);
+  conflicts: function () {
+	  	githubAuth(this.githubUserName,this.githubPassword);
+		var githubRepoName=this.githubRepoName;
+		var githubUserName=this.githubUserName;
 	 github.repos.create({
-    name: this.gitRepo
+    name: githubRepoName
 },function(err,res){
-	console.log("error: "+err+" response of create repo: "+res);
+	if (err){
+		console.log(chalk.red("\nError creating new repository : "+err));
+	}
+	else{
+		console.log(chalk.green("\nNew repository created: "+githubRepoName));
+	}
 	child_process.execSync('git init'); 
     child_process.execSync('git add .');
     child_process.execSync('git commit -m "Initial_commit"');
-    child_process.execSync('git remote add origin https://github.com/'+githubUser+'/'+gitRepo+'.git');
+    child_process.execSync('git remote add origin https://github.com/'+githubUserName+'/'+githubRepoName+'.git');
 	child_process.execSync('git branch gh-pages');
 	child_process.execSync('git push origin gh-pages');
 });
-};
+  },
+  
+  install: function() {
 
-Generator.prototype.install =  function(){
-	/*async.series([
-    function(){ child_process.execSync('git init'); },
-    function(){ child_process.execSync('git add \.'); },
-    function(){ child_process.execSync('git commit -m "Initial_commit"'); },
-    function(){ child_process.execSync('git status'); }	
-]);*/
-   /* child_process.execSync('git init'); 
-    child_process.execSync('git add .');
-    child_process.execSync('git commit -m "Initial_commit"');
-    child_process.execSync('git remote add origin https://github.com/'+this.githubUser+'/'+this.gitRepo+'.git');
-	child_process.execSync('git branch gh-pages');
-	child_process.execSync('git push origin gh-pages');*/
-};
+  }
+});

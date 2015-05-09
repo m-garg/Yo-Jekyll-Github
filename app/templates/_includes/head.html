@@ -1,24 +1,23 @@
 <head>
-<title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+	<title>
+	{% if page.title %}
+      {{ page.title }} &middot; {{ site.title }}
+    {% else %}
+	  {{ site.title }} &middot; {{ site.tagline }}
+    {% endif %}
+	</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <meta name="description" content="{{ page.description }}">
 <meta name="keywords" content="{{ page.keywords }}">
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Expires" CONTENT="-1">
-<link rel="shortcut icon" title="Boxupp Fav icon" href="images/favicon.ico">
+<link rel="shortcut icon" title="<%= projectName %> Fav icon" href="images/favicon.ico">
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
 <link href="css/simple-sidebar.css" rel="stylesheet">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 <link rel="stylesheet" href="css/style.css " />
 
@@ -30,6 +29,6 @@
 
   ga('create', 'UA-49237943-1', 'boxupp.com');
   ga('send', 'pageview');
-
 </script>
+
 </head>
